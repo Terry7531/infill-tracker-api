@@ -56,6 +56,12 @@
 /* ── Reset ────────────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+html, body, #root {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
 html { font-size: 16px; -webkit-font-smoothing: antialiased; }
 
 body {
@@ -106,8 +112,9 @@ img, svg { display: block; }
   border-radius: var(--radius-sm);
 }
 
-/* ── Global Mobile Fixes ──────────────────────────────────────────────────── */
-@media (max-width: 768px) {
+/* ── Global Mobile Fixes (portrait + landscape iPhone) ───────────────────── */
+/* 896px covers iPhone 12 Pro Max landscape (844px) + safe margin             */
+@media (max-width: 896px) {
   /* Prevent any element from overflowing the viewport width */
   body { overflow-x: hidden; }
 

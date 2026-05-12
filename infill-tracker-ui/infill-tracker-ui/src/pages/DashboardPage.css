@@ -321,7 +321,7 @@
 .db-my-link:hover { color: var(--brand-accent); }
 
 /* ── Mobile ───────────────────────────────────────────────────────────────── */
-@media (max-width: 768px) {
+@media (max-width: 896px) {
   /* Totals strip scrolls horizontally */
   .db-totals { overflow-x: auto; width: 100%; }
   .db-totals__item { padding: 0.75rem 1rem; }

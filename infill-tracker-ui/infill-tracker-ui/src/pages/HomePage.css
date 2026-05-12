@@ -187,7 +187,7 @@
 .home-auth-notice__btn:hover { color: var(--brand-accent); }
 
 /* ── Mobile ───────────────────────────────────────────────────────────────── */
-@media (max-width: 768px) {
+@media (max-width: 896px) {
   .home__inner { padding: 1.5rem 0.75rem 2.5rem; gap: 2rem; }
   .home__headline { font-size: 2rem; }
   .home__sub { font-size: 0.9rem; }

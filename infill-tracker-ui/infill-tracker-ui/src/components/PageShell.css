@@ -1,14 +1,33 @@
 .page-shell {
   min-height: calc(100vh - 64px);
   padding: 2.5rem 2rem 4rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .page-shell__inner {
   max-width: 1280px;
+  width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 2rem;
+}
+
+@media (max-width: 896px) {
+  .page-shell {
+    padding: 1rem 0.75rem 3rem;
+  }
+  .page-shell__inner {
+    gap: 1rem;
+  }
+  .page-shell__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .page-shell__title {
+    font-size: 1.4rem;
+  }
 }
 
 /* ── Page header ──────────────────────────────────────────────────────────── */

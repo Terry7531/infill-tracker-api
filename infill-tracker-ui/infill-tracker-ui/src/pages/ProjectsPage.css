@@ -97,7 +97,7 @@
 }
 
 /* ── Mobile ───────────────────────────────────────────────────────────────── */
-@media (max-width: 768px) {
+@media (max-width: 896px) {
   .projects-grid { grid-template-columns: 1fr; gap: 0.75rem; }
   .project-card__name { font-size: 0.95rem; }
   .project-card__actions { gap: 0.5rem; }

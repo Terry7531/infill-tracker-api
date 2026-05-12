@@ -264,21 +264,33 @@
 }
 
 /* ── Mobile ───────────────────────────────────────────────────────────────── */
-@media (max-width: 768px) {
+@media (max-width: 896px) {
   /* Summary strip scrolls horizontally */
-  .nat-strip { overflow-x: auto; width: 100%; }
-  .nat-strip__item { padding: 0.75rem 1rem; }
+  .nat-strip { overflow-x: auto; width: 100%; box-sizing: border-box; -webkit-overflow-scrolling: touch; }
+  .nat-strip__item { padding: 0.65rem 0.85rem; flex-shrink: 0; }
   .nat-strip__val  { font-size: 1.3rem; }
+  .nat-strip__lbl  { font-size: 0.6rem; }
 
   /* Single column cards */
-  .nat-cards { grid-template-columns: 1fr; }
+  .nat-cards { grid-template-columns: 1fr; gap: 0.75rem; }
 
-  /* Card adjustments */
-  .nat-card { padding: 1rem; }
-  .nat-card__head { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
-  .nat-card__chips { flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
+  /* Card adjustments — full width */
+  .nat-card { padding: 0.85rem; width: 100%; box-sizing: border-box; }
+  .nat-card__head { flex-direction: column; gap: 0.4rem; align-items: flex-start; }
+  .nat-card__chips { flex-direction: row; flex-wrap: wrap; align-items: flex-start; gap: 0.3rem; }
+  .nat-chip { font-size: 0.65rem; }
+
+  /* Task name */
+  .nat-card__name { font-size: 0.9rem; }
 
   /* Meta row wraps tighter */
-  .nat-card__meta { gap: 0.5rem 0.75rem; }
-  .nat-meta__label { display: none; } /* hide labels, show icon+value only */
+  .nat-card__meta { gap: 0.4rem 0.65rem; padding: 0.5rem 0; }
+  .nat-meta__label { display: none; }
+  .nat-meta__value { font-size: 0.78rem; }
+
+  /* Group header */
+  .nat-group__title { font-size: 1rem; }
+
+  /* Timeline bar */
+  .nat-card__timeline-label { font-size: 0.68rem; }
 }
