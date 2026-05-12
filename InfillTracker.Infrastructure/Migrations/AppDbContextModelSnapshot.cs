@@ -172,7 +172,7 @@ namespace InfillTracker.Infrastructure.Migrations
 
                     b.HasIndex("ProjectId", "ExcelCode")
                         .IsUnique()
-                        .HasFilter("[ExcelCode] IS NOT NULL");
+                        .HasFilter("\"ExcelCode\" IS NOT NULL");
 
                     b.ToTable("Tasks", (string)null);
                 });

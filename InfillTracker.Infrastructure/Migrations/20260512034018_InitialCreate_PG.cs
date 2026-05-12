@@ -352,7 +352,7 @@ namespace InfillTracker.Infrastructure.Migrations
                 table: "Tasks",
                 columns: new[] { "ProjectId", "ExcelCode" },
                 unique: true,
-                filter: "[ExcelCode] IS NOT NULL");
+                filter: "\"ExcelCode\" IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tasks_TaskOwnerId",

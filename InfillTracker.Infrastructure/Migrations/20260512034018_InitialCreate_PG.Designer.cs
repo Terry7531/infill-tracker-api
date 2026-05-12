@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace InfillTracker.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260512032820_InitialCreate_PG")]
+    [Migration("20260512034018_InitialCreate_PG")]
     partial class InitialCreate_PG
     {
         /// <inheritdoc />
@@ -175,7 +175,7 @@ namespace InfillTracker.Infrastructure.Migrations
 
                     b.HasIndex("ProjectId", "ExcelCode")
                         .IsUnique()
-                        .HasFilter("[ExcelCode] IS NOT NULL");
+                        .HasFilter("\"ExcelCode\" IS NOT NULL");
 
                     b.ToTable("Tasks", (string)null);
                 });

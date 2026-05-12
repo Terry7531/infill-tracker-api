@@ -57,7 +57,7 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
             entity.HasKey(t => t.Id);
             entity.Property(t => t.ExcelCode).HasMaxLength(20);
             entity.HasIndex(t => new { t.ProjectId, t.ExcelCode })
-                  .IsUnique().HasFilter("[ExcelCode] IS NOT NULL");
+                  .IsUnique().HasFilter("\"ExcelCode\" IS NOT NULL");
             entity.Property(t => t.TaskName).IsRequired().HasMaxLength(300);
             entity.Property(t => t.ProjectStage).HasMaxLength(150);
             entity.Property(t => t.ToDoList).HasColumnType("text");
