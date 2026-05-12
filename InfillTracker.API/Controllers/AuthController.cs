@@ -14,18 +14,18 @@ namespace InfillTracker.API.Controllers;
 [Route("api/[controller]")]
 public class AuthController : ControllerBase
 {
-    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly UserManager<ApplicationUser>  _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
-    private readonly IConfiguration _config;
+    private readonly IConfiguration               _config;
 
     public AuthController(
-        UserManager<ApplicationUser> userManager,
+        UserManager<ApplicationUser>  userManager,
         SignInManager<ApplicationUser> signInManager,
-        IConfiguration config)
+        IConfiguration               config)
     {
-        _userManager = userManager;
+        _userManager   = userManager;
         _signInManager = signInManager;
-        _config = config;
+        _config        = config;
     }
 
     // POST api/auth/signin
@@ -51,12 +51,13 @@ public class AuthController : ControllerBase
         var token = GenerateJwt(user, roles);
 
         // Set JWT in HttpOnly cookie — JS cannot read this, protects against XSS
+        var isProduction = Environment.GetEnvironmentVariable("RAILWAY_ENVIRONMENT") != null;
         Response.Cookies.Append("infilltracker_auth", token, new CookieOptions
         {
             HttpOnly = true,
-            Secure = true,          // HTTPS only
-            SameSite = SameSiteMode.Strict,
-            Expires = DateTimeOffset.UtcNow.AddHours(
+            Secure   = isProduction,   // HTTPS on Railway, HTTP ok locally
+            SameSite = isProduction ? SameSiteMode.None : SameSiteMode.Strict,
+            Expires  = DateTimeOffset.UtcNow.AddHours(
                 double.Parse(_config["Jwt:ExpiryHours"] ?? "8"))
         });
 
@@ -65,7 +66,8 @@ public class AuthController : ControllerBase
             user.FullName,
             user.Email!,
             roles.FirstOrDefault() ?? IdentitySeeder.RoleUser,
-            user.MustChangePassword));
+            user.MustChangePassword,
+            token));   // also return token in body for cross-domain
     }
 
     // POST api/auth/signout
@@ -83,7 +85,7 @@ public class AuthController : ControllerBase
     public async Task<ActionResult<SignInResponseDto>> Me()
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var user = await _userManager.FindByIdAsync(userId!);
+        var user   = await _userManager.FindByIdAsync(userId!);
         if (user is null) return Unauthorized();
 
         var roles = await _userManager.GetRolesAsync(user);
@@ -103,7 +105,7 @@ public class AuthController : ControllerBase
         [FromBody] ChangePasswordDto dto)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var user = await _userManager.FindByIdAsync(userId!);
+        var user   = await _userManager.FindByIdAsync(userId!);
         if (user is null) return Unauthorized();
 
         var result = await _userManager.ChangePasswordAsync(
@@ -125,10 +127,10 @@ public class AuthController : ControllerBase
     // ── JWT generation ────────────────────────────────────────────────────────
     private string GenerateJwt(ApplicationUser user, IList<string> roles)
     {
-        var key = new SymmetricSecurityKey(
+        var key     = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
-        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-        var expiry = DateTime.UtcNow.AddHours(
+        var creds   = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        var expiry  = DateTime.UtcNow.AddHours(
             double.Parse(_config["Jwt:ExpiryHours"] ?? "8"));
 
         var claims = new List<Claim>
@@ -143,10 +145,10 @@ public class AuthController : ControllerBase
             claims.Add(new Claim(ClaimTypes.Role, role));
 
         var token = new JwtSecurityToken(
-            issuer: _config["Jwt:Issuer"],
+            issuer:   _config["Jwt:Issuer"],
             audience: _config["Jwt:Audience"],
-            claims: claims,
-            expires: expiry,
+            claims:   claims,
+            expires:  expiry,
             signingCredentials: creds);
 
         return new JwtSecurityTokenHandler().WriteToken(token);
@@ -157,10 +159,11 @@ public class AuthController : ControllerBase
 public record SignInRequestDto(string Email, string Password);
 
 public record SignInResponseDto(
-    string Id,
-    string FullName,
-    string Email,
-    string Role,
-    bool MustChangePassword);
+    string  Id,
+    string  FullName,
+    string  Email,
+    string  Role,
+    bool    MustChangePassword,
+    string? Token = null);   // returned in body for cross-domain deployments
 
 public record ChangePasswordDto(string CurrentPassword, string NewPassword);

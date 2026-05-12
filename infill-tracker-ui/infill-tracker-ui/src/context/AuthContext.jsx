@@ -1,33 +1,49 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { api } from '../api/client';
+import { api, setAuthToken, clearAuthToken } from '../api/client';
 
 const AuthContext = createContext(null);
 
-/**
- * Provides authentication state to the entire app.
- * On mount, calls GET /api/auth/me to restore an existing session
- * from the HttpOnly cookie (if one exists).
- */
-export function AuthProvider({ children }) {
-  const [user,    setUser]    = useState(null);   // null = not signed in
-  const [loading, setLoading] = useState(true);   // true while checking session
+// Persist token in sessionStorage so page refreshes don't log the user out.
+// sessionStorage is cleared when the browser tab closes — safer than localStorage.
+const TOKEN_KEY = 'it_session';
 
-  // Restore session on app load
+export function AuthProvider({ children }) {
+  const [user,    setUser]    = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Restore session on app load from sessionStorage
   useEffect(() => {
-    api.auth.me()
-      .then(setUser)
-      .catch(() => setUser(null))
-      .finally(() => setLoading(false));
+    const stored = sessionStorage.getItem(TOKEN_KEY);
+    if (stored) {
+      setAuthToken(stored);
+      api.auth.me()
+        .then(setUser)
+        .catch(() => {
+          clearAuthToken();
+          sessionStorage.removeItem(TOKEN_KEY);
+          setUser(null);
+        })
+        .finally(() => setLoading(false));
+    } else {
+      setLoading(false);
+    }
   }, []);
 
   const signIn = useCallback(async (email, password) => {
     const userData = await api.auth.signIn(email, password);
+    // Store token from response body
+    if (userData.Token) {
+      setAuthToken(userData.Token);
+      sessionStorage.setItem(TOKEN_KEY, userData.Token);
+    }
     setUser(userData);
     return userData;
   }, []);
 
   const signOut = useCallback(async () => {
     await api.auth.signOut().catch(() => {});
+    clearAuthToken();
+    sessionStorage.removeItem(TOKEN_KEY);
     setUser(null);
   }, []);
 
