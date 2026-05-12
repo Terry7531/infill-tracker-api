@@ -262,3 +262,23 @@
   padding: 1.25rem;
   box-shadow: var(--shadow-sm);
 }
+
+/* ── Mobile ───────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Summary strip scrolls horizontally */
+  .nat-strip { overflow-x: auto; width: 100%; }
+  .nat-strip__item { padding: 0.75rem 1rem; }
+  .nat-strip__val  { font-size: 1.3rem; }
+
+  /* Single column cards */
+  .nat-cards { grid-template-columns: 1fr; }
+
+  /* Card adjustments */
+  .nat-card { padding: 1rem; }
+  .nat-card__head { flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+  .nat-card__chips { flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
+
+  /* Meta row wraps tighter */
+  .nat-card__meta { gap: 0.5rem 0.75rem; }
+  .nat-meta__label { display: none; } /* hide labels, show icon+value only */
+}

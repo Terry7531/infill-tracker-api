@@ -185,3 +185,19 @@
   transition: color var(--transition);
 }
 .home-auth-notice__btn:hover { color: var(--brand-accent); }
+
+/* ── Mobile ───────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .home__inner { padding: 1.5rem 0.75rem 2.5rem; gap: 2rem; }
+  .home__headline { font-size: 2rem; }
+  .home__sub { font-size: 0.9rem; }
+
+  /* Stats strip scrolls horizontally */
+  .home__stats { overflow-x: auto; width: 100%; }
+  .home__stat  { padding: 0.85rem 1.25rem; }
+  .home__stat-value { font-size: 1.5rem; }
+
+  /* Stage pills wrap naturally */
+  .home__stages { gap: 0.4rem; }
+  .home__stage-pill { font-size: 0.75rem; }
+}

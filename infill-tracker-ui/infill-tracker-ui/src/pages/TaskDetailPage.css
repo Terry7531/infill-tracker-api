@@ -275,3 +275,30 @@
   color: var(--text-muted);
   font-size: 0.9rem;
 }
+
+/* ── Mobile ───────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Heading wraps */
+  .td-heading { flex-direction: column; gap: 0.35rem; }
+  .td-heading__name { font-size: 1.2rem; }
+
+  /* All grids go single column */
+  .td-grid--2,
+  .td-grid--3,
+  .td-grid--4 { grid-template-columns: 1fr; }
+
+  /* Section padding tighter */
+  .td-section { padding: 1rem; }
+
+  /* Dependency chips wrap */
+  .td-dep-list { gap: 0.35rem; }
+  .td-dep-chip { font-size: 0.72rem; }
+
+  /* Select + add button row stays on one line */
+  .td-select-row { gap: 0.35rem; }
+  .td-add-btn { padding: 0 0.6rem; font-size: 0.72rem; }
+
+  /* Save bar stacks */
+  .td-save-bar { flex-direction: column; align-items: stretch; }
+  .td-save-bar .btn { width: 100%; justify-content: center; }
+}

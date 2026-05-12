@@ -141,3 +141,37 @@
   background: rgba(255,255,255,.08);
 }
 
+
+/* ── Mobile NavBar ────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .navbar__inner {
+    padding: 0 0.75rem;
+    height: 54px;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+  }
+
+  /* Hide nav link text labels — show as icons/abbrev */
+  .navbar__nav {
+    flex: 1;
+    justify-content: flex-end;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .navbar__nav::-webkit-scrollbar { display: none; }
+
+  .navbar__link {
+    padding: 0.3rem 0.45rem;
+    font-size: 0.72rem;
+    white-space: nowrap;
+  }
+
+  /* Shrink user section */
+  .navbar__user { gap: 0.4rem; }
+  .navbar__user-name { max-width: 60px; font-size: 0.72rem; }
+  .navbar__user-role { display: none; }
+  .navbar__signout-btn { padding: 0.3rem 0.6rem; font-size: 0.72rem; }
+  .navbar__login-btn   { padding: 0.3rem 0.6rem; font-size: 0.72rem; }
+  .navbar__logo-text   { display: none; }
+}

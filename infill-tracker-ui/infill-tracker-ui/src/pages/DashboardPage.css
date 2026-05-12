@@ -319,3 +319,37 @@
   transition: color var(--transition);
 }
 .db-my-link:hover { color: var(--brand-accent); }
+
+/* ── Mobile ───────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Totals strip scrolls horizontally */
+  .db-totals { overflow-x: auto; width: 100%; }
+  .db-totals__item { padding: 0.75rem 1rem; }
+  .db-totals__val  { font-size: 1.4rem; }
+
+  /* Project grid single column */
+  .db-proj-grid { grid-template-columns: 1fr; }
+
+  /* My Tasks table — card layout */
+  .db-my-table-wrap { overflow-x: auto; }
+  .db-my-table thead { display: none; }
+  .db-my-table,
+  .db-my-table tbody,
+  .db-my-table tr { display: block; width: 100%; }
+
+  .db-my-row {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.35rem 0.5rem;
+  }
+
+  .db-td { padding: 0; border: none; }
+  .db-td--name { grid-column: 1 / 3; font-weight: 600; font-size: 0.85rem; max-width: 100%; white-space: normal; }
+  .db-td--sub  { font-size: 0.75rem; }
+
+  /* Owner selector full width */
+  .db-owner-select { width: 100%; min-width: unset; }
+  .db-section__header { flex-direction: column; align-items: flex-start; }
+}
