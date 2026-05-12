@@ -1,0 +1,23 @@
+{
+  "profiles": {
+    "InfillTracker.API": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:62103;http://localhost:62104"
+    },
+    "React UI": {
+      "commandName": "Executable",
+      "executablePath": "cmd.exe",
+      "commandLineArgs": "/c npm run dev",
+      "workingDirectory": "..\\..\\..\\repos\\DavachHoldings\\infill-tracker-ui\\infill-tracker-ui",
+      "launchBrowser": true,
+      "launchUrl": "http://localhost:3000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

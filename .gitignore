@@ -1,0 +1,57 @@
+## .NET / Visual Studio
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+*.rsuser
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## NuGet
+*.nupkg
+*.snupkg
+.nuget/packages/
+packages/
+!**/packages/build/
+*.lock.json
+
+## Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+## CRITICAL — never commit secrets
+## Copy appsettings.json to appsettings.Production.json and set real values there
+## Keep appsettings.json in git with placeholder values only
+appsettings.Production.json
+appsettings.Development.json
+**/secrets.json
+
+## User-specific files
+*.rsuser
+*.user
+*.userosscache
+*.sln.docstates
+
+## Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+## Rider
+.idea/
+*.sln.iml
