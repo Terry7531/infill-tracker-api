@@ -1,4 +1,5 @@
-const BASE = '/api';
+// In dev: Vite proxies /api to localhost. In production: use the Railway API URL.
+const BASE = import.meta.env.VITE_API_URL ?? '/api';
 
 async function request(path, options = {}) {
   const res = await fetch(`${BASE}${path}`, {

@@ -60,12 +60,12 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
                   .IsUnique().HasFilter("[ExcelCode] IS NOT NULL");
             entity.Property(t => t.TaskName).IsRequired().HasMaxLength(300);
             entity.Property(t => t.ProjectStage).HasMaxLength(150);
-            entity.Property(t => t.ToDoList).HasColumnType("nvarchar(max)");
+            entity.Property(t => t.ToDoList).HasColumnType("text");
             entity.Property(t => t.InvoiceNumber).HasMaxLength(100);
             entity.Property(t => t.PaymentMethod).HasMaxLength(100);
             entity.Property(t => t.StorageLocation).HasMaxLength(500);
             entity.Property(t => t.TemplateDocument).HasMaxLength(500);
-            entity.Property(t => t.Cost).HasColumnType("decimal(18,2)");
+            entity.Property(t => t.Cost).HasPrecision(18, 2);
 
             entity.HasOne(t => t.Project)
                   .WithMany(p => p.Tasks)
